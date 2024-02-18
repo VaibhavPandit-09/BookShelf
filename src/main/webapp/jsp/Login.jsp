@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Create User</title>
+    <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;

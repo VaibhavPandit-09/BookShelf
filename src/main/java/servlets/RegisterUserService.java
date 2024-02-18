@@ -28,7 +28,7 @@ public class RegisterUserService extends HttpServlet {
         boolean success = userManager.addUser(firstName, lastName, username, email, password);
 
         if (success) {
-            response.sendRedirect("/jsp/Login.jsp"); // Redirect or display success message
+            response.sendRedirect("/bookshelf/login"); // Redirect or display success message
         } else {
             request.setAttribute("errorMessage", "User creation failed.");
             request.getRequestDispatcher("/jsp/Register.jsp").forward(request, response);

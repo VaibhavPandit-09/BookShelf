@@ -42,7 +42,7 @@ public class UserManager {
    public boolean addUser(String firstName, String lastName, String username,  String email, String password) {
     // Hash the password
     String hashedPassword = HashingUtility.hashPassword(password);
-    byte[] hashBytes = hashedPassword.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
 
     // Call the stored procedure
     String sql = "{call SP_REGISTER_USER(?, ?, ?, ?, ?)}";
@@ -55,7 +55,7 @@ public class UserManager {
         cstmt.setString(2, lastName);
         cstmt.setString(3, email);
         cstmt.setString(4, username);
-        cstmt.setBytes(5, hashBytes); // Pass the hashed password
+        cstmt.setString(5, hashedPassword); // Pass the hashed password
         
         boolean result = cstmt.executeUpdate() > 0;
         return result;
