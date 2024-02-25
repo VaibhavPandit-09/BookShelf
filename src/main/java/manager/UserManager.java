@@ -11,11 +11,11 @@ import database.DbLoader;
 import models.User;
 import utility.HashingUtility;
 
-public class UserManager {
+public  class UserManager {
 
     public User getUserById(int userId) {
         User user = null;
-        String query = "SELECT id, firstName, lastName, email_id FROM users WHERE id = ?";
+        String query = "SELECT userID, firstName, lastName, email FROM users WHERE userID = ?";
 
         try (Connection conn = DbLoader.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -24,11 +24,12 @@ public class UserManager {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    int id = rs.getInt("id");
+                    int id = rs.getInt("userID");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
-                    String username = rs.getString("username");
-                    String emailId = rs.getString("email_id");
+                    //String username = rs.getString("username");
+                    String username = "";
+                    String emailId = rs.getString("email");
 
                     user = new User(id, firstName, lastName, username ,emailId);
                 }

@@ -5,8 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-
-@WebServlet(name = "LoginUserRouter", urlPatterns = {"/login"})
+@WebServlet(name = "LoginUserRouter", urlPatterns = {"/", "/login"})
 public class LoginUserRouter extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

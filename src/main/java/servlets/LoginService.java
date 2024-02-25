@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.CallableStatement;
+//import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +33,8 @@ public class LoginService extends HttpServlet {
                             // Login successful, manage session
                             HttpSession session = request.getSession();
                             session.setAttribute("user", username); // Store username in session
+                            int userId = getUserId(conn, username);
+                            session.setAttribute("userId", userId);
                             response.sendRedirect("/bookshelf/Dashboard"); // Adjust the redirection as needed
                         } else {
                             // Login failed, redirect or forward to login page with an error message
@@ -52,6 +54,22 @@ public class LoginService extends HttpServlet {
             throw new ServletException("Hashing problem.", e);
         }
     }
-    
 
+    private int getUserId(Connection conn, String username) {
+        int userId = -1;
+        String sql = "SELECT userID FROM UserLogin WHERE username = ?";
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                        userId = rs.getInt(1);
+                } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         } catch (Exception e){
+            e.printStackTrace();
+        }
+        return userId;
+    }
 }
